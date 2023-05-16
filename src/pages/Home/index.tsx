@@ -1,35 +1,60 @@
 import { useState } from "react";
 import Header from "../../components/Header";
+import Loading from "../../components/Loding";
 import NavBar from "../../components/NavBar";
 import ProductCard from "../../components/ProductCard";
 import Products from "../../service/Products";
 import { IProduct } from "../../service/Products/products.structure";
+import { ISearchInfos } from "./home.struccture";
 
 export default function Home() {
-  const [search, setSearch] = useState("" as string);
+  const [productInfo, setProductInfo] = useState({ search: "" } as ISearchInfos);
   const [allProducts, setAllProducts] = useState([] as IProduct[]);
+  const [loading, setLoading] = useState(false as boolean); 
 
-  const getProducts = async (id: string) => {
-    const data = await Products.getByCategoryAndQuery(id, search);
+  const updateClass = async (id: string) => {
+    setProductInfo({ ...productInfo, productClass: id });
+    setLoading(true)
+    const data = await Products.getByCategoryAndQuery(id, "");
 
     if (data) {
       setAllProducts(data.results);
+      setLoading(false)
     }
+  }
+
+  const getProducts = async () => {
+    setLoading(true)
+    const data = await Products.getByCategoryAndQuery(productInfo.productClass, productInfo.search);
+
+    if (data) {
+      setAllProducts(data.results);
+      setLoading(false)
+    }
+  }
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setProductInfo({ ...productInfo, search: value });
   }
 
   return (
     <div>
-      <Header search={ search } setSearch={ setSearch } />
-      <div className=" flex gap-10">
-        <NavBar getProducts={ getProducts } />
-        <div className=" pt-[135px] flex flex-wrap gap-10">
-          { allProducts.map((e) => {
-            return (
-              <div key={e.id}>
-                <ProductCard product={e} />
-              </div>
-            )
-          }) }
+      <Header handleChange={handleChange} search={ productInfo.search } searchBtn={getProducts} />
+      <div className=" flex w-screen">
+        <NavBar getProducts={ updateClass } />
+        <div className={` ${!loading && "flex flex-wrap"} pt-[135px] gap-10 items-center justify-center pb-10 w-full`}>
+          { loading ? (
+            <Loading />
+          ) : (
+            allProducts.map((e) => {
+              return (
+                <div key={e.id}>
+                  <ProductCard product={e} />
+                </div>
+              )
+            })
+          ) }
         </div>
       </div>
     </div>

@@ -1,4 +1,5 @@
 export interface IHeaderProps {
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   search: string;
-  setSearch: React.Dispatch<React.SetStateAction<string>>
+  searchBtn: () => Promise<void>
 }

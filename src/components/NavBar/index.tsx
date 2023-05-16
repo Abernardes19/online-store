@@ -19,7 +19,7 @@ export default function NavBar(props: INavBarProps) {
   }, [])
 
   return (
-    <aside className=" bg-new-black w-[280px] border-0 border-r-2 border-r-beige ">
+    <aside className=" bg-new-black min-w-[280px] border-0 border-r-2 border-r-beige ">
       <nav className=" pt-[115px] flex flex-col gap-3 px-5">
         {
           categories.map((e) => {
