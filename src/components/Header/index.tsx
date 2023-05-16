@@ -5,7 +5,7 @@ export default function Header({ search, setSearch }: IHeaderProps) {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-    setSearch(value)
+    setSearch(value);
   }
 
   return (

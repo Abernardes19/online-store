@@ -6,3 +6,7 @@ export interface IProduct {
   id: string;
   available_quantity: number;
 }
+
+export interface IProductResult {
+  results: IProduct[]
+}

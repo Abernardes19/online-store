@@ -1,8 +1,8 @@
 import api from "../api";
-import { IProduct } from "./products.structure";
+import { IProductResult } from "./products.structure";
 
 class Products {
-  getByCategoryAndQuery = async (categoryId: string, query: string): Promise<IProduct[] | false> => {
+  getByCategoryAndQuery = async (categoryId: string, query: string): Promise<IProductResult | false> => {
     try {
       const { data } = await api.get(`/sites/MLB/search?category=${categoryId}&q=${query}`)
 
@@ -12,7 +12,7 @@ class Products {
     }
   } 
 
-  getById = async (id: string): Promise<IProduct | false> => {
+  getById = async (id: string): Promise<IProductResult | false> => {
     try {
       const { data } = await api.get(`/items/${id}`);
 
