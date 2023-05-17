@@ -18,7 +18,7 @@ export default function Header({ handleChange, search, searchBtn }: IHeaderProps
       </label>
       <button className=" flex items-center gap-2">
         <AiOutlineShoppingCart />
-        <p>Meu Carrinho</p>
+        <p>{`Meu Carrinho ${JSON.parse(localStorage.getItem("products") as string).length}`}</p>
       </button>
     </div>
   )

@@ -1,5 +1,5 @@
 import api from "../api";
-import { IProductResult } from "./products.structure";
+import { IProduct, IProductResult } from "./products.structure";
 
 class Products {
   getByCategoryAndQuery = async (categoryId: string, query: string): Promise<IProductResult | false> => {
@@ -12,7 +12,7 @@ class Products {
     }
   } 
 
-  getById = async (id: string): Promise<IProductResult | false> => {
+  getById = async (id: string): Promise<IProduct | false> => {
     try {
       const { data } = await api.get(`/items/${id}`);
 

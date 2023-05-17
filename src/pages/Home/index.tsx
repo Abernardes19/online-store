@@ -45,7 +45,9 @@ export default function Home() {
         <NavBar getProducts={ updateClass } />
         <div className={` ${!loading && "flex flex-wrap"} pt-[135px] gap-10 items-center justify-center pb-10 w-full`}>
           { loading ? (
-            <Loading />
+            <div className=" mt-[400px]">
+              <Loading />
+            </div>
           ) : (
             allProducts.map((e) => {
               return (
