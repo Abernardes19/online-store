@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../../components/Header";
 import Loading from "../../components/Loding";
 import NavBar from "../../components/NavBar";
@@ -10,7 +10,13 @@ import { ISearchInfos } from "./home.struccture";
 export default function Home() {
   const [productInfo, setProductInfo] = useState({ search: "" } as ISearchInfos);
   const [allProducts, setAllProducts] = useState([] as IProduct[]);
-  const [loading, setLoading] = useState(false as boolean); 
+  const [loading, setLoading] = useState(false as boolean);
+  
+  useEffect(() => { 
+    if (!localStorage.getItem("products")) {
+      localStorage.setItem("products", JSON.stringify([]))
+    }
+  }, []);
 
   const updateClass = async (id: string) => {
     setProductInfo({ ...productInfo, productClass: id });

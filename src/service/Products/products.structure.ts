@@ -2,7 +2,7 @@ export interface IProduct {
   shipping: { free_shipping: boolean };
   thumbnail: string;
   title: string;
-  price: string;
+  price: number;
   id: string;
   available_quantity: number;
 }

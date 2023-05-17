@@ -1,7 +1,10 @@
+import { useContext } from "react";
 import { AiOutlineShoppingCart, AiOutlineSearch } from "react-icons/ai";
+import MyContext from "../Context/ProductContex";
 import { IHeaderProps } from "./header.structure";
 
 export default function Header({ handleChange, search, searchBtn }: IHeaderProps) {
+  const { myProducts } = useContext(MyContext);
 
   return (
     <div className=" w-screen flex justify-around items-center fixed top-0 h-[100px] bg-new-black border-b-beige border-0 border-b-2">
@@ -18,7 +21,7 @@ export default function Header({ handleChange, search, searchBtn }: IHeaderProps
       </label>
       <button className=" flex items-center gap-2">
         <AiOutlineShoppingCart />
-        <p>{`Meu Carrinho ${JSON.parse(localStorage.getItem("products") as string).length}`}</p>
+        <p>{`Meu Carrinho ${myProducts.length === 0 ? 0 : myProducts.reduce((prev, curr) => prev + curr.quantity, 0)}`}</p>
       </button>
     </div>
   )
