@@ -10,7 +10,7 @@ export default function Nav() {
   return (
     <header className=" w-screen flex justify-center items-center fixed top-0 h-[100px] bg-new-black border-b-beige border-0 border-b-2 gap-10">
         <button className=" hover:-translate-x-1 hover:-translate-y-1" onClick={ () => navigate("/") }>Home</button>
-        { pathname.includes("product") && (
+        { !pathname.includes("my") && (
           <button className=" flex items-center gap-2 hover:-translate-x-1 hover:-translate-y-1" onClick={ () => navigate("/myCart") }>
             <AiOutlineShoppingCart />
             <p>{`Meu Carrinho ${myProducts.length === 0 ? 0 : myProducts.reduce((prev, curr) => prev + curr.quantity, 0)}`}</p>
