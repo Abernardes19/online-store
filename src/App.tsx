@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ContextProvider from "./components/Context/ProductProvider";
 import Home from "./pages/Home";
+import MyCart from "./pages/MyCart";
 import Product from "./pages/Product";
 
 export default function App() {
@@ -10,6 +11,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={ <Home /> } />
           <Route path="/product/:id" element={ <Product /> } />
+          <Route path="/myCart" element={ <MyCart /> } />
         </Routes>
       </ContextProvider>
     </BrowserRouter>

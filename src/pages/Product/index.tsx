@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
-import { AiOutlineShoppingCart } from "react-icons/ai";
-import { useNavigate, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import Loading from "../../components/Loding";
+import Nav from "../../components/Nav";
 import Products from "../../service/Products";
 import { IProduct } from "../../service/Products/products.structure";
 
 export default function Product() {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [info, setInfo] = useState({} as IProduct);
-  const [loading, setLoading] = useState(true as boolean)
+  const [loading, setLoading] = useState(true as boolean);
   
   const getProduct = async () => {
     const data = await Products.getById(id as string);
@@ -26,13 +25,7 @@ export default function Product() {
 
   return (
     <div>
-      <header className=" w-screen flex justify-center items-center fixed top-0 h-[100px] bg-new-black border-b-beige border-0 border-b-2 gap-10">
-        <button className=" hover:-translate-x-1 hover:-translate-y-1" onClick={ () => navigate("/") }>Home</button>
-        <button className=" flex items-center gap-2 hover:-translate-x-1 hover:-translate-y-1">
-          <AiOutlineShoppingCart />
-          <p>{`Meu Carrinho ${JSON.parse(localStorage.getItem("products") as string).length}`}</p>
-        </button>
-      </header>
+      <Nav />
       <div className=" h-scree w-screen flex justify-center items-center mt-[110px]">
         {loading ? <Loading /> : (
           <div className="h-[800px] w-[600px] flex flex-col items-center justify-evenly bg-new-black border-beige border">

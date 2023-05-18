@@ -2,20 +2,11 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { formatValue } from "../../utils";
 import MyContext from "../Context/ProductContex";
-import { IMyProducts } from "../Context/ProductContex/context.structure";
 import { IProductCardProps } from "./productCard.structure";
 
 export default function ProductCard({ product }: IProductCardProps) {
   const navigate = useNavigate();
-  const { updateProducts, myProducts } = useContext(MyContext);
-
-  const setQuantity = (id: string) => {
-    if (!myProducts.find((e) => id === e.id)) {
-      return 1
-    } else {
-      return (myProducts.find((e) => id === e.id) as IMyProducts).quantity + 1
-    }
-  }
+  const { addProducts } = useContext(MyContext);
 
   const addToMyCart = () => {
     const { available_quantity, price, thumbnail, title, id, shipping } = product;
@@ -26,9 +17,9 @@ export default function ProductCard({ product }: IProductCardProps) {
       title,
       id,
       shipping,
-      quantity: setQuantity(id)
+      quantity: 0
     }
-    updateProducts(myProduct);
+    addProducts(myProduct);
   }
 
   return (

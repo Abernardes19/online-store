@@ -17,15 +17,48 @@ const ContextProvider = ({ children }: MyProviderProps) => {
     }
   }, []);
 
-  const updateProducts = (product: IMyProducts) => {
-    const newProducts = [...myProducts.filter((e) => e.id !== product.id), product]
-    setMyProducts(newProducts);
-    localStorage.setItem("products", JSON.stringify(newProducts));
+  const addProducts = (product: IMyProducts) => {
+    if (myProducts.some((e) => e.id === product.id)) {
+      const productInCart = myProducts.find((e) => e.id === product.id)
+      const index = myProducts.indexOf(productInCart as IMyProducts);
+      const newProducts = [...myProducts]
+      newProducts.splice(index, 1, {...product, quantity: (productInCart as IMyProducts).quantity + 1})
+       
+      localStorage.setItem("products", JSON.stringify(newProducts));
+
+      setMyProducts(newProducts);
+    } else {
+      const newProduct = {...product, quantity: 1}
+      setMyProducts(old => [...old, newProduct]);
+      console.log([...myProducts, newProduct]);
+      
+      localStorage.setItem("products", JSON.stringify([...myProducts, newProduct]))
+    }
   };
+
+  const reducingProducts = (product: IMyProducts) => {
+    const reducedProduct = {
+      ...product,
+      quantity: product.quantity - 1
+    }
+    if (reducedProduct.quantity === 0) {
+      const newProducts = myProducts.filter((e) => e.id !== product.id)
+      setMyProducts(newProducts);
+      localStorage.setItem("products", JSON.stringify(newProducts));
+    } else {
+      const productInCart = myProducts.find((e) => e.id === product.id)
+      const index = myProducts.indexOf(productInCart as IMyProducts);
+      const newProducts = [...myProducts]
+      newProducts.splice(index, 1, {...product, quantity: (productInCart as IMyProducts).quantity - 1})
+      setMyProducts(newProducts);
+      localStorage.setItem("products", JSON.stringify(newProducts));
+    }
+  }
 
   const objProvider = {
     myProducts,
-    updateProducts
+    addProducts,
+    reducingProducts
   };
 
   return (

@@ -6,5 +6,6 @@ export interface IMyProducts extends IProduct {
 
 export interface IContext {
   myProducts: IMyProducts[],
-  updateProducts: (product: IMyProducts) => void
+  addProducts: (product: IMyProducts) => void,
+  reducingProducts: (product: IMyProducts) => void
 }

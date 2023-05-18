@@ -1,10 +1,12 @@
 import { useContext } from "react";
 import { AiOutlineShoppingCart, AiOutlineSearch } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 import MyContext from "../Context/ProductContex";
 import { IHeaderProps } from "./header.structure";
 
 export default function Header({ handleChange, search, searchBtn }: IHeaderProps) {
   const { myProducts } = useContext(MyContext);
+  const navigate = useNavigate();
 
   return (
     <div className=" w-screen flex justify-around items-center fixed top-0 h-[100px] bg-new-black border-b-beige border-0 border-b-2">
@@ -19,7 +21,7 @@ export default function Header({ handleChange, search, searchBtn }: IHeaderProps
           <AiOutlineSearch />
         </button>
       </label>
-      <button className=" flex items-center gap-2">
+      <button className=" flex items-center gap-2" onClick={ () => navigate("/myCart") }>
         <AiOutlineShoppingCart />
         <p>{`Meu Carrinho ${myProducts.length === 0 ? 0 : myProducts.reduce((prev, curr) => prev + curr.quantity, 0)}`}</p>
       </button>
