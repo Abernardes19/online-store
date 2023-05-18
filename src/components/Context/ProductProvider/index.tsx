@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
+import { IReview } from '../../../pages/Product/product.structure';
 import MyContext from '../ProductContex';
 import { IMyProducts } from '../ProductContex/context.structure';
 type MyProviderProps = {
@@ -8,12 +9,18 @@ type MyProviderProps = {
 
 const ContextProvider = ({ children }: MyProviderProps) => {
   const [myProducts, setMyProducts] = useState([] as IMyProducts[]);
+  const [myReviews, setMyReviews] = useState([] as IReview[]);
   
   useEffect(() => {
     if (localStorage.getItem("products")) {
       setMyProducts(JSON.parse(localStorage.getItem("products") as string));
     } else {
       localStorage.setItem("products", JSON.stringify([]));
+    }
+    if (localStorage.getItem("review")) {
+      setMyReviews(JSON.parse(localStorage.getItem("review") as string))
+    } else {
+      localStorage.setItem("review", JSON.stringify([]))
     }
   }, []);
 
@@ -58,7 +65,9 @@ const ContextProvider = ({ children }: MyProviderProps) => {
   const objProvider = {
     myProducts,
     addProducts,
-    reducingProducts
+    reducingProducts,
+    myReviews,
+    setMyReviews
   };
 
   return (
